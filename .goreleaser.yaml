@@ -26,19 +26,31 @@ archives:
       {{- if .Arm }}v{{ .Arm }}{{ end }}
     # use zip for windows archives
     format_overrides:
-    - goos: windows
-      format: zip
+      - goos: windows
+        format: zip
 checksum:
-  name_template: 'checksums.txt'
+  name_template: "checksums.txt"
 snapshot:
   name_template: "{{ incpatch .Version }}-next"
 changelog:
   sort: asc
   filters:
     exclude:
-      - '^docs:'
-      - '^test:'
+      - "^docs:"
+      - "^test:"
 
+brews:
+  - name: lsn
+    url_template: "https://github.com/faizmokh/lsn/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    folder: Formula
+    description: "A simple CLI tool to generate open source license"
+    license: "MIT"
+    commit_author:
+      name: faizmokh
+      email: mfmokhtar@gmail.com
+    homepage: https://github.com/faizmokh/homebrew-tap
+    tap:
+      owner: faizmokh
 # The lines beneath this are called `modelines`. See `:help modeline`
 # Feel free to remove those if you don't want/use them.
 # yaml-language-server: $schema=https://goreleaser.com/static/schema.json
