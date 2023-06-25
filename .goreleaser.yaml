@@ -41,11 +41,14 @@ changelog:
 
 brews:
   - name: lsn
-    # goarm: 6
-    folder: Formula
-    tap:
+    repository:
       owner: faizmokh
       name: homebrew-tap
+      pull_request:
+        enabled: true
+    folder: Formula
+    homepage: "https://github.com/faizmokh/lsn"
+    license: "MIT"
 # The lines beneath this are called `modelines`. See `:help modeline`
 # Feel free to remove those if you don't want/use them.
 # yaml-language-server: $schema=https://goreleaser.com/static/schema.json
