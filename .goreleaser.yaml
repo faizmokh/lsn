@@ -44,8 +44,6 @@ brews:
     tap:
       owner: faizmokh
       name: homebrew-tap
-      pull_request:
-        enabled: true
     folder: Formula
     homepage: "https://github.com/faizmokh/lsn"
     license: "MIT"
