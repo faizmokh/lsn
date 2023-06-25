@@ -41,7 +41,7 @@ changelog:
 
 brews:
   - name: lsn
-    repository:
+    tap:
       owner: faizmokh
       name: homebrew-tap
       pull_request:
