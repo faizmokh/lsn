@@ -5,10 +5,15 @@ package cmd
 
 import (
 	"fmt"
-	"log"
+	"time"
 
 	"github.com/faizmokh/lsn/gen"
 	"github.com/spf13/cobra"
+)
+
+var (
+	author string
+	year   int16
 )
 
 // genCmd represents the gen command
@@ -22,25 +27,23 @@ var genCmd = &cobra.Command{
 Will output an Apache open source license with the author name replace as "John Doe" and the year as "2023".
 	`,
 	Args: cobra.ExactArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
-		license, err := gen.GetLicense(args[0])
+	RunE: func(cmd *cobra.Command, args []string) error {
+		data := gen.LicenseData{Author: author, Year: year}
+		license, err := gen.GetLicense(args[0], &data)
 		if err != nil {
-			log.Fatal(err)
+			return err
 		}
+
 		fmt.Println(license)
+		return nil
 	},
 }
 
 func init() {
+	genCmd.PersistentFlags().StringVarP(&author, "author", "a", "", "Authors's name")
+
+	defaultYear := int16(time.Now().Year())
+	genCmd.PersistentFlags().Int16VarP(&year, "year", "y", defaultYear, "License's year")
+
 	rootCmd.AddCommand(genCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// createCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// createCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
